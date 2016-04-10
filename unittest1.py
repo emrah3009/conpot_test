@@ -11,6 +11,7 @@ def testing(handle):
                 if len(line) == 0:
                     break
                 f1.write(line)
+                f1.flush()
             except KeyboardInterrupt:       # stops with keybord interrupt
                 break
 
