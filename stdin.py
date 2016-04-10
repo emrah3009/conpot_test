@@ -9,5 +9,6 @@ with open('report.txt','w') as f1: # writes the line to the text file
             if len(line) == 0:
                 break
             f1.write(line)
+            f1.flush()
         except KeyboardInterrupt:       # stops with keybord interrupt
             break
