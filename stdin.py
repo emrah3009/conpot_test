@@ -7,7 +7,7 @@ with open('report.txt','w') as f1: # writes the line to the text file
     while 1:
         try:
             fd = sys.stdin.fileno()
-            line = os.read(fd,1024*1) #reads lines
+            line = os.read(fd,1024) #reads lines
             if len(line) == 0:
                 break
             f1.write(line)
