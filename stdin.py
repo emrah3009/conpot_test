@@ -8,17 +8,16 @@ import sys, os
 
 def reading1(handle):
     fd = sys.stdin.fileno()
+    # keep original terminal settings
     old_settings = termios.tcgetattr(fd)
-    while 1:
-        try:
-            # keep original terminal settings
-            tty.setraw(handle.fileno())
-            ch = handle.read(1)
-        except Exception as e:
-            print(e)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
+    try:
+        tty.setraw(handle.fileno())
+        ch = handle.read(1)
+    except Exception as e:
+        print(e)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch
 
 def reading2(handle):
    while 1:
@@ -32,17 +31,14 @@ def reading2(handle):
         except KeyboardInterrupt:       # stops with keybord interrupt
             break
 
-
-def read_file(files):
+def read_file(files):             # to read from a file
     with open(files,'r') as f1:
         reading2(f1)
-
 
 def write_to_file(x1):
     with open('report.txt','a') as f1: # writes the line to the text file
         f1.write(x1)
-   
-
+        
 def choose_type(handle):
     while 1:
         if type(handle) == str:
@@ -52,12 +48,11 @@ def choose_type(handle):
         else:
             ch = reading1(sys.stdin)
             chk = ord(ch)
-            print eval(repr(ch))
+            #print (repr(ch))
             if chk in [3, 4]:
             # ctrl+c and ctrl+d
                 break
-            write_to_file(eval(repr(ch)))
-
+            write_to_file(ch)
 
 
 choose_type(sys.stdin) # read from sys.stin
